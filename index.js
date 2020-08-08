@@ -1,24 +1,14 @@
-let searchInput = document.getElementById('searchInput')
-const names = document.querySelectorAll('.name')
-const results = document.getElementById('results')
+document.getElementById('searchInput').addEventListener('keyup', function (event) {
+  let searchQuery = event.target.value.toLowerCase()
+  let allNamesDOMCollection = document.getElementsByClassName('name')
 
-const arr = []
-let searchQuery = ''
+  for (let i = 0; i < allNamesDOMCollection.length; i++) {
+    const currentName = allNamesDOMCollection[i].textContent.toLocaleLowerCase()
 
-for (const name of names) {
-  arr.push(name.innerText)
-}
-
-searchInput.addEventListener('keyup', (e) => {
-  searchQuery = e.target.value.toLowerCase()
-})
-
-searchInput.addEventListener('click', (e) => {
-  arr.forEach((name) => {
-    if (name.toLowerCase() === searchQuery) {
-      console.log('a match')
-      const match = (document.createElement('h2').innerText = name)
-      results.append(match)
+    if (currentName.includes(searchQuery)) {
+      allNamesDOMCollection[i].style.display = 'block'
+    } else {
+      allNamesDOMCollection[i].style.display = 'none'
     }
-  })
+  }
 })
